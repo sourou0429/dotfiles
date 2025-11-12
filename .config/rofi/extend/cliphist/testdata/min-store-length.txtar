@@ -1,0 +1,35 @@
+exec randstr 16
+stdin stdout
+exec cliphist store
+
+exec randstr 3
+stdin stdout
+exec cliphist -min-store-length 3 store
+
+# we stored everything so far
+exec cliphist list
+stdout -count=2 '^.'
+
+exec randstr 4
+stdin stdout
+exec cliphist -min-store-length 3 store
+
+# we can store the last, since 4 > 3
+exec cliphist list
+stdout -count=3 '^.'
+
+exec randstr 2
+stdin stdout
+exec cliphist -min-store-length 3 store
+
+# not the last, since 4 > 3
+exec cliphist list
+stdout -count=3 '^.'
+
+exec randstr 3
+stdin stdout
+exec cliphist -min-store-length 3 store
+
+# last is fine, 3 == 3
+exec cliphist list
+stdout -count=4 '^.'
