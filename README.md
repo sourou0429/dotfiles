@@ -1,4 +1,4 @@
-# Grimm's Dotfiles
+# Kuroiko's Dotfiles
 
 This repository contains my personal configuration files (dotfiles) for a customized Linux environment, primarily focused on the Wayland compositor [River](https://github.com/riverwm/river) and the Neovim text editor. These configurations aim for a minimal yet highly functional and aesthetically pleasing setup, often utilizing the Gruvbox color scheme.
 
