@@ -1,3 +1,5 @@
+default-timeout=5000
+
 # Colors
 
 background-color=#282828
@@ -7,3 +9,5 @@ progress-color=over #1d2021
 
 [urgency=high]
 border-color=#fbf1c7
+border-size=10
+default-timeout=0

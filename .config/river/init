@@ -1,37 +1,25 @@
 #!/bin/sh
 
-# This is the example configuration file for river.
-#
-# If you wish to edit this, you will probably want to copy it to
-# $XDG_CONFIG_HOME/river/init or $HOME/.config/river/init first.
-#
-# See the river(1), riverctl(1), and rivertile(1) man pages for complete
-# documentation.
-
-# riverctl spawn "waybar"
-riverctl spawn "fcitx5 &"
-riverctl spawn "kitty tmux"
-
+# startup 
+fcitx5 &
+kitty tmux &
 kanshi &
 mako &
 swayidle &
 wl-paste --watch cliphist store &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
+waybar &
+# docker desktop start &
+# python ~/Documents/weather-notify.py
 
 riverctl keyboard-layout jp
-
-# riverctl focus-follows-cursor enable
+riverctl focus-follows-cursor enable
 
 gsettings set org.gnome.desktop.interface cursor-theme BreezeX-Dark
 gsettings set org.gnome.desktop.interface cursor-size 45
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river 
 
-
-# Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
-
-# Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
-# riverctl map normal Super Return spawn "kitty"
+# keybind
 riverctl map normal Super Return spawn "kitty tmux"
 riverctl map normal Super+Shift Return spawn "kitty"
 riverctl map normal Super+Control L spawn "swaylock -c '#282828'"
@@ -43,17 +31,7 @@ riverctl map normal Super T spawn "~/.config/rofi/extend/rofi-bluetooth/rofi-blu
 riverctl map normal Super Y spawn "~/.config/rofi/extend/rofi-wifi-menu/rofi-wifi-menu.sh"
 riverctl map normal Super V spawn "rofi -modi clipboard:~/.config/rofi/extend/cliphist/contrib/cliphist-rofi -show clipboard"
 riverctl map normal Super+Shift V spawn "rofi -modi clipboard:~/.config/rofi/extend/cliphist/contrib/cliphist-rofi-img -show clipboard -show-icons"
-
-# window rule-add
-riverctl rule-add -app-id 'mpv'
-
-# Super+Q to close the focused view
 riverctl map normal Super Q close
-
-# riverctl map normal Super R spawn "rofi -show drun"
-# riverctl map normal Super R spawn "kitty --title launcher -e fsel"
-
-# Super+Shift+E to exit river
 riverctl map normal Super+Shift E exit
 
 # Super+J and Super+K to focus the next/previous view in the layout stack
@@ -110,6 +88,17 @@ riverctl map-pointer normal Super BTN_RIGHT resize-view
 
 # Super + Middle Mouse Button to toggle float
 riverctl map-pointer normal Super BTN_MIDDLE toggle-float
+
+# Let's note touchpad settings
+# riverctl input pointer-2-7-SynPS/2_Synaptics_TouchPad pointer-accel 0.35
+# riverctl input pointer-2-7-SynPS/2_Synaptics_TouchPad scroll-factor 1.30
+# riverctl input pointer-2-7-SynPS/2_Synaptics_TouchPad click-method clickfinger
+# riverctl input pointer-2-7-SynPS/2_Synaptics_TouchPad accel-profile adaptive
+riverctl input pointer-2-7-SynPS/2_Synaptics_TouchPad tap enabled
+# riverctl input pointer-2-7-SynPS/2_Synaptics_TouchPad tap-button-map left-right-middle
+# riverctl input pointer-2-7-SynPS/2_Synaptics_TouchPad drag disabled
+# riverctl input pointer-2-7-SynPS/2_Synaptics_TouchPad disable-while-typing enabled
+# riverctl input pointer-2-7-SynPS/2_Synaptics_TouchPad natural-scroll enabled
 
 for i in $(seq 1 9)
 do
@@ -199,15 +188,3 @@ riverctl rule-add -app-id "bar" csd
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
 rivertile -view-padding 6 -outer-padding 6 &
-
-touchpad=$(riverctl list-inputs | rg "pointer-2-7-SynPS/_Synaptics_TouchPad")
-riverctl input "$touchpad" pointer-accel 0.35
-riverctl input "$touchpad" scroll-factor 1.30
-riverctl input "$touchpad" click-method clickfinger
-riverctl input "$touchpad" accel-profile adaptive
-riverctl input "$touchpad" tap enabled
-riverctl input "$touchpad" tap-button-map left-right-middle
-riverctl input "$touchpad" drag disabled
-riverctl input "$touchpad" disable-while-typing enabled
-riverctl input "$touchpad" natural-scroll enabled
-
