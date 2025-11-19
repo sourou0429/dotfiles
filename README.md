@@ -43,7 +43,7 @@ To use these dotfiles, you typically clone the repository and then symlink the c
 
 ```bash
 # Example for Neovim
-git clone https://github.com/yourusername/dotfiles.git ~/.dotfiles
+git clone https://github.com/sourou0429/dotfiles.git ~/.dotfiles
 ln -s ~/.dotfiles/.config/nvim ~/.config/nvim
 ```
 
